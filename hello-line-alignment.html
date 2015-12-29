@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Text alignment</title>
+
+	<style type="text/css">
+
+
+		#container {
+
+			width: 600px;
+			overflow: hidden
+			font-size: 14px;
+			font-family: arial;
+			line-height: 28px;
+			padding: 5px;
+			border: 1px solid #ccc;
+		}
+
+		#container div span span {
+
+			display: inline-block;
+			position: relative;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div id="container">
+		<div>
+			<span>Lorem Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen.</span>	
+		</div>
+		<div>
+			<span>Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw</span>	
+		</div>
+		<div>
+			<span>toen een onbekende drukker een zethaak met letters nam en ze door elkaar </span>	
+		</div>
+		<div>
+			<span>husselde maken. Het heeft niet alleen vijf eeuwen overleefd maar is ook, vrijwel </span>	
+		</div>
+		<div>
+			<span>onveranderd. overgenomen in elektronische letterzetting. Het is in de jaren '60</span>	
+		</div>
+		<div>
+			<span> populair geworden met de introductie van Letraset met Lorem Ipsum passages.</span>	
+		</div>
+		<div>
+			<span>This is the last line.</span>	
+		</div>
+	</div>
+
+	<p>
+		<button align="left">left</button>
+		<button align="center">center</button>
+		<button align="right">right</button> |
+		<button align="justifyLeft">Justify Left</button>
+		<button align="justifyCenter">Justify Center</button>
+		<button align="justifyRight">Justify Right</button>
+	</p>
+
+	<script type="text/javascript">
+
+		var container = document.querySelectorAll('#container div');
+
+		var buttonLeft = document.querySelector('button[align="left"]'),
+			buttonCenter = document.querySelector('button[align="center"]'),
+			buttonRight = document.querySelector('button[align="right"]'),
+			buttonJustifyLeft = document.querySelector('button[align="justifyLeft"]');
+			buttonJustifyCenter = document.querySelector('button[align="justifyCenter"]');
+			buttonJustifyRight = document.querySelector('button[align="justifyRight"]');
+			
+		var words = [];
+
+		var left = function ( isJustify ) {
+
+			isJustify = isJustify || null;
+
+			for (var i = container.length - 1; i >= 0; i--) {
+
+				var containerSpan = container[i].querySelector('span');
+					
+
+				words[i] = words[i] || containerSpan.innerText.toString().split(' ');
+				
+				container[i].style.paddingLeft = 0+'px';
+				containerSpan.innerHTML = words[i].join(' ');
+			}
+
+			if( isJustify === true  ) {
+
+				justify();
+			}
+		};
+
+		var center = function ( isJustify ) {
+
+			isJustify = isJustify || null;
+
+			for (var i = container.length - 1; i >= 0; i--) {
+
+				var containerSpan = container[i].querySelector('span');
+
+				words[i] = words[i] || containerSpan.innerText.toString().split(' ');
+
+				containerSpan.innerHTML = words[i].join(' ');
+
+				var centerSpaceLeft = (600 - containerSpan.offsetWidth) / 2;
+
+				container[i].style.paddingLeft = centerSpaceLeft+'px';
+			}
+
+			if( isJustify === true  ) {
+
+				justify();
+			}
+		};
+
+
+		var right = function ( isJustify ) {
+
+			isJustify = isJustify || null;
+
+			for (var i = container.length - 1; i >= 0; i--) {
+
+				var containerSpan = container[i].querySelector('span');
+
+				words[i] = words[i] || containerSpan.innerText.toString().split(' ');
+
+				containerSpan.innerHTML = words[i].join(' ');
+
+				var centerSpaceLeft = (600 - containerSpan.offsetWidth) ;
+
+				container[i].style.paddingLeft = centerSpaceLeft+'px';
+			}
+
+			if( isJustify === true  ) {
+
+				justify();
+			}
+		};
+
+		var justify = function () {
+
+			for (var i = container.length - 1; i >= 0; i--) {
+
+				if(i === (container.length-1) ) {
+
+					continue;
+				}
+
+				container[i].style.paddingLeft = 0+'px';
+
+				var containerSpan = container[i].querySelector('span');
+					
+				words[i] = words[i] || containerSpan.innerText.toString().split(' ');
+
+				containerSpan.innerHTML = words[i].join('<span>&nbsp;</span>');
+
+				var spaces = containerSpan.querySelectorAll('span');
+				
+				for (var ii = spaces.length - 1; ii >= 0; ii--) {
+
+					spaces[ii].style.width = 0+'px';
+				};
+
+				var diff = ( 600 - containerSpan.offsetWidth) / spaces.length;
+
+				for (var ii = spaces.length - 1; ii >= 0; ii--) {
+
+					spaces[ii].style.width = diff+'px';
+				};
+			}
+		};
+
+		var justifyLeft = function() {
+
+			left( true );
+		}
+
+		var justifyCenter = function() {
+
+			center( true );
+		}
+
+		var justifyRight = function() {
+
+			right( true );
+		}
+
+		// Listen for the event.
+		buttonLeft.addEventListener('click', left, false);
+		buttonCenter.addEventListener('click', center, false);
+		buttonRight.addEventListener('click', right, false);
+
+		buttonJustifyLeft.addEventListener('click', justifyLeft, false);
+		buttonJustifyCenter.addEventListener('click', justifyCenter, false);
+		buttonJustifyRight.addEventListener('click', justifyRight, false);
+
+	</script>
+</body>
+</html>
