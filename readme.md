@@ -6,5 +6,5 @@ A prototype of a multiline text alignment. Used for basic text for working with 
 #### Watch (in browser)
 >
 ```
-Open 'hello-line-alignment' in a (Chrome) browser
+Open 'hello-line-alignment.html' in a (Chrome) browser
 ```
